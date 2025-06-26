@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { Form } from './form/form';
 
-const routes: Routes = [];
+const routes: Routes = [{ path: '', component: Form }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ValidatorRoutingModule { }
+export class ValidatorRoutingModule {}
