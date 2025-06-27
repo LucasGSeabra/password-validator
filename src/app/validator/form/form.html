@@ -1,1 +1,26 @@
-<p>form works!</p>
+<div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-card appearance="raised">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="senha"
+          placeholder="Digite a senha"
+        />
+        <mat-error *ngIf="form.get('senha')?.hasError('required')">
+          Informe uma senha.
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid || form.pending"
+      >
+        Validar senha
+      </button>
+    </mat-card>
+  </form>
+</div>
