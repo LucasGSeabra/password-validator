@@ -1,0 +1,32 @@
+$spacing: 24px;
+$card-padding: 24px;
+$max-width: 500px;
+$gap: 16px;
+$background-color: #fff;
+
+.mf-validator {
+  display: flex;
+  justify-content: center;
+  padding: $spacing;
+
+  &__form {
+    width: 100%;
+    max-width: $max-width;
+  }
+
+  &__card {
+    padding: $card-padding;
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+    background-color: $background-color;
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  &__button {
+    align-self: flex-end;
+  }
+}

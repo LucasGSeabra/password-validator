@@ -1,0 +1,24 @@
+$spacing: 24px;
+$max-width: 768px;
+
+.mf-shell {
+  display: flex;
+  flex-direction: column;
+
+  .mf-toolbar {
+    display: flex;
+    justify-content: center;
+    padding: 0 $spacing;
+
+    &__title {
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+  }
+
+  .mf-shell__content {
+    max-width: $max-width;
+    margin: $spacing auto;
+    padding: 0 $spacing;
+  }
+}

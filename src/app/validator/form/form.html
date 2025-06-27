@@ -1,7 +1,7 @@
-<div>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
-    <mat-card appearance="raised">
-      <mat-form-field appearance="outline" class="full-width">
+<div class="mf-validator">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mf-validator__form">
+    <mat-card appearance="raised" class="mf-validator__card">
+      <mat-form-field appearance="outline" class="mf-validator__field">
         <mat-label>Senha</mat-label>
         <input
           matInput
@@ -17,6 +17,7 @@
         mat-raised-button
         color="primary"
         type="submit"
+        class="mf-validator__button"
         [disabled]="form.invalid || form.pending"
       >
         Validar senha
