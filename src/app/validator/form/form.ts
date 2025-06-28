@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -11,9 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ValidatorService } from '../validator-service';
+import { ValidatePasswordResponse } from '../models/validatePassword';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface FormData {
-  senha: FormControl<string>;
+  password: FormControl<string>;
 }
 
 @Component({
@@ -24,25 +27,36 @@ interface FormData {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCard
+    MatCard,
   ],
   templateUrl: './form.html',
   styleUrl: './form.scss',
 })
 export class Form {
-  form: FormGroup<FormData>;
+  private fb = inject(FormBuilder);
+  private validatorService = inject(ValidatorService);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group<FormData>({
-      senha: this.fb.control<string>('', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-    });
-  }
+  form: FormGroup<FormData> = this.fb.group({
+    password: this.fb.control<string>('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
+
+  result = signal<ValidatePasswordResponse | null>(null);
+  error = signal<string | null>(null);
 
   onSubmit(): void {
-    const dados = this.form.value;
-    console.log(dados)
+    if (this.form.invalid) return;
+
+    this.result.set(null);
+    this.error.set(null);
+
+    const payload = this.form.getRawValue();
+
+    this.validatorService.validatePassword(payload).subscribe({
+      next: (response) => this.result.set(response),
+      error: () => this.error.set('Erro ao validar a senha.'),
+    });
   }
 }

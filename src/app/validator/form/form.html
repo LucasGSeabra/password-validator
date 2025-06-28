@@ -12,6 +12,11 @@
         <mat-error *ngIf="form.get('senha')?.hasError('required')">
           Informe uma senha.
         </mat-error>
+        <mat-error *ngIf="error()"> {{error()}} </mat-error>
+        <div *ngIf="result()?.messages as messages">
+          <mat-error *ngFor="let message of messages"> {{message}} </mat-error>
+        </div>
+        <div *ngIf="result()?.isValid">A senha foi validada com sucesso!</div>
       </mat-form-field>
       <button
         mat-raised-button
