@@ -6,10 +6,10 @@
         <input
           matInput
           type="text"
-          formControlName="senha"
+          formControlName="password"
           placeholder="Digite a senha"
         />
-        <mat-error *ngIf="form.get('senha')?.hasError('required')">
+        <mat-error *ngIf="form.get('password')?.hasError('required')">
           Informe uma senha.
         </mat-error>
         <mat-error *ngIf="error()"> {{error()}} </mat-error>
