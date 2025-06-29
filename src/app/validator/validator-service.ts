@@ -5,18 +5,21 @@ import {
   ValidatePasswordRequest,
   ValidatePasswordResponse,
 } from './models/validatePassword';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ValidatorService {
-  private readonly apiUrl = 'http://localhost:8082/validar';
+  private readonly apiUrl = `${environment.api_url}/validar`;
 
   constructor(private http: HttpClient) {}
 
   validatePassword(
     request: ValidatePasswordRequest
   ): Observable<ValidatePasswordResponse> {
-    return this.http.post<ValidatePasswordResponse>(this.apiUrl, { request });
+    return this.http.post<ValidatePasswordResponse>(this.apiUrl, {
+      ...request,
+    });
   }
 }
