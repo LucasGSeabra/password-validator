@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -13,7 +13,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ValidatorService } from '../validator-service';
 import { ValidatePasswordResponse } from '../models/validatePassword';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 interface FormData {
   password: FormControl<string>;
@@ -31,13 +30,14 @@ interface FormData {
   ],
   templateUrl: './form.html',
   styleUrl: './form.scss',
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class Form {
-  private fb = inject(FormBuilder);
+  private formBuilder = inject(FormBuilder);
   private validatorService = inject(ValidatorService);
 
-  form: FormGroup<FormData> = this.fb.group({
-    password: this.fb.control<string>('', {
+  form: FormGroup<FormData> = this.formBuilder.group({
+    password: this.formBuilder.control<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),

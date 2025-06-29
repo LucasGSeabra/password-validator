@@ -1,8 +1,9 @@
 $spacing: 24px;
 $card-padding: 24px;
-$max-width: 500px;
+$max-width: 800px;
 $gap: 16px;
 $background-color: #fff;
+$succes-color: #10a003;
 
 .mf-validator {
   display: flex;
@@ -20,6 +21,12 @@ $background-color: #fff;
     flex-direction: column;
     gap: $gap;
     background-color: $background-color;
+    width: 600px;
+    max-width: $max-width;
+
+    &__text--success {
+      color: $succes-color;
+    }
   }
 
   &__field {
