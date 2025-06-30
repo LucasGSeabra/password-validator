@@ -1,39 +1,380 @@
-$spacing: 24px;
-$card-padding: 24px;
-$max-width: 800px;
-$gap: 16px;
-$background-color: #fff;
-$succes-color: #10a003;
+// =====================================================
+// VARIÁVEIS DE CORES
+// =====================================================
+// Sistema de cores consistente usado em todo o componente
+$p: #007bff74; // Azul primário (com transparência) - botões principais
+$s: #28a745; // Verde de sucesso - mensagens positivas
+$e: #dc3545; // Vermelho de erro - mensagens de erro e validação
+$bg: #f8f9fa; // Cinza claro de fundo - background geral da tela
+$w: #fff; // Branco - fundos de cards e elementos
+$b: #e9ecef; // Cinza das bordas - divisores e contornos
+$m: #6c757d; // Cinza médio - textos secundários e hints
 
+// =====================================================
+// LAYOUT PRINCIPAL - CONTAINER GERAL
+// =====================================================
+// Container principal que ocupa toda a viewport e centraliza o conteúdo
 .mf-validator {
-  display: flex;
-  justify-content: center;
-  padding: $spacing;
+  min-height: 100vh; // Altura mínima da tela inteira
+  display: flex; // Layout flexível para centralização
+  align-items: center; // Centraliza verticalmente
+  justify-content: center; // Centraliza horizontalmente
+  padding: 24px; // Espaçamento interno para não grudar nas bordas
+  background: $bg; // Fundo cinza claro
+}
+// =====================================================
+// CONTAINER DO FORMULÁRIO
+// =====================================================
+// Define a largura máxima do formulário para não ficar muito largo em telas grandes
+.mf-validator__form {
+  width: 100%; // Ocupa toda largura disponível
+  max-width: 500px; // Mas não passa de 500px para manter legibilidade
+}
 
-  &__form {
-    width: 100%;
-    max-width: $max-width;
+// =====================================================
+// CARD PRINCIPAL - CONTAINER VISUAL
+// =====================================================
+// Card branco com sombra que contém todo o formulário
+.mf-validator__card {
+  background: $w; // Fundo branco limpo
+  border-radius: 8px; // Bordas levemente arredondadas
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); // Sombra sutil para profundidade
+  padding: 32px; // Espaçamento interno generoso
+  border: 1px solid $b; // Borda cinza muito sutil
+}
+// =====================================================
+// CABEÇALHO DO FORMULÁRIO
+// =====================================================
+// Área superior com título e descrição, centralizada
+.mf-validator__header {
+  text-align: center; // Centraliza todo o conteúdo do cabeçalho
+  margin-bottom: 32px; // Espaço para separar do resto do formulário
+}
+
+// Título principal em destaque
+.mf-validator__title {
+  font: 600 1.75rem inherit; // Negrito, tamanho grande, herda família da página
+  margin: 0 0 12px; // Remove margem padrão, adiciona espaço embaixo
+}
+
+// Subtítulo explicativo em tom mais suave
+.mf-validator__subtitle {
+  font-size: 0.875rem; // Texto menor que o título
+  color: $m; // Cor cinza para menos destaque
+  margin: 0; // Remove margem padrão
+}
+
+// =====================================================
+// ESPAÇAMENTO DOS CAMPOS
+// =====================================================
+// Define espaçamento consistente entre os elementos do formulário
+.mf-validator__field,
+.mf-validator__result {
+  margin-bottom: 24px; // Espaço entre campo de entrada e resultado
+}
+// =====================================================
+// LISTA DE ERROS DE VALIDAÇÃO
+// =====================================================
+// Container principal para mostrar erros de validação com visual destacado
+.mf-validator__error-list {
+  background: #fff5f5; // Fundo rosa muito claro para indicar erro
+  border: 1px solid #fed7d7; // Borda rosa para reforçar o estado de erro
+  border-radius: 6px; // Bordas arredondadas para suavizar
+  padding: 16px; // Espaçamento interno confortável
+  margin-bottom: 16px; // Espaço para separar de outros elementos
+}
+
+// Cabeçalho da lista de erros com ícone e texto
+.mf-validator__error-list .error-header {
+  display: flex; // Layout flexível para alinhar ícone e texto
+  align-items: center; // Alinha ícone e texto verticalmente
+  gap: 8px; // Espaço entre ícone e texto
+  margin-bottom: 12px; // Espaço para separar da lista de erros
+  font: 600 0.875rem inherit; // Texto negrito e menor
+  color: $e; // Cor vermelha para destacar erro
+}
+
+// Container da lista de mensagens (remove estilos padrão de lista)
+.mf-validator__error-list .error-messages {
+  list-style: none; // Remove bullets da lista
+  padding: 0; // Remove padding padrão
+  margin: 0; // Remove margem padrão
+}
+
+// Cada item individual da lista de erros
+.mf-validator__error-list .error-item {
+  display: flex; // Layout flexível para ícone e mensagem
+  align-items: flex-start; // Alinha no topo (caso mensagem seja longa)
+  gap: 8px; // Espaço entre ícone e texto
+  margin-bottom: 8px; // Espaço entre cada item
+  color: $e; // Cor vermelha para o texto
+  font-size: 0.8rem; // Texto pequeno para as mensagens
+}
+
+// Remove margem do último item para não haver espaço desnecessário
+.mf-validator__error-list .error-item:last-child {
+  margin-bottom: 0;
+}
+// =====================================================
+// MENSAGEM DE SUCESSO
+// =====================================================
+// Container para mostrar quando a senha passou em todas as validações
+.mf-validator__success {
+  background: #f0fff4; // Fundo verde muito claro para indicar sucesso
+  border: 1px solid #9ae6b4; // Borda verde para reforçar o estado positivo
+  border-radius: 6px; // Bordas arredondadas para suavizar
+  padding: 16px; // Espaçamento interno confortável
+  text-align: center; // Centraliza todo o conteúdo
+}
+
+// Ícone grande de sucesso no topo
+.mf-validator__success .success-icon {
+  font-size: 2rem; // Ícone bem grande para destaque
+  color: $s; // Cor verde de sucesso
+  margin-bottom: 8px; // Espaço entre ícone e texto
+}
+
+// Texto principal da mensagem de sucesso
+.mf-validator__success .success-text {
+  display: block; // Força quebra de linha
+  font-weight: 600; // Texto negrito para destaque
+  color: $s; // Cor verde para reforçar sucesso
+  margin-bottom: 8px; // Espaço entre título e descrição
+}
+
+// Descrição adicional em tom mais suave
+.mf-validator__success .success-description {
+  font-size: 0.875rem; // Texto menor que o título
+  color: #1e7e34; // Verde mais escuro para boa legibilidade
+  margin: 0; // Remove margem padrão
+}
+// =====================================================
+// ÁREA DOS BOTÕES DE AÇÃO
+// =====================================================
+// Container que organiza os botões na parte inferior do formulário
+.mf-validator__actions {
+  display: flex; // Layout flexível para organizar botões
+  gap: 16px; // Espaço entre os botões
+  justify-content: flex-end; // Alinha botões à direita (padrão em forms)
+}
+
+// =====================================================
+// ESTILOS BASE DOS BOTÕES
+// =====================================================
+// Estilo comum a todos os botões para consistência visual
+.mf-validator__button {
+  display: flex; // Layout flexível para ícone e texto
+  align-items: center; // Centraliza ícone e texto verticalmente
+  justify-content: center; // Centraliza conteúdo horizontalmente
+  gap: 8px; // Espaço entre ícone e texto
+  padding: 12px 24px; // Espaçamento interno confortável
+  border-radius: 6px; // Bordas levemente arredondadas
+  font-weight: 500; // Texto meio-negrito
+  transition: all 0.2s; // Animação suave para hover/focus
+  border: 1px solid transparent; // Borda transparente por padrão
+  min-width: 120px; // Largura mínima para consistência
+  height: 40px; // Altura fixa para alinhamento
+}
+// =====================================================
+// BOTÃO SECUNDÁRIO (Limpar)
+// =====================================================
+// Botão com visual mais discreto para ações secundárias
+.mf-validator__button--secondary {
+  background: transparent; // Fundo transparente para ser mais discreto
+  color: $m; // Texto cinza médio
+  border-color: $b; // Borda cinza sutil
+}
+
+// Efeito hover do botão secundário
+.mf-validator__button--secondary:hover:not(:disabled) {
+  background: $bg; // Fundo cinza claro no hover
+}
+
+// Estado desabilitado do botão secundário
+.mf-validator__button--secondary:disabled {
+  opacity: 0.6; // Transparência para indicar inativo
+  cursor: not-allowed; // Cursor indica que não pode clicar
+}
+
+// =====================================================
+// BOTÃO PRIMÁRIO (Validar)
+// =====================================================
+// Botão principal com destaque visual para ação principal
+.mf-validator__button--primary {
+  background: $p; // Fundo azul primário
+  color: white; // Texto branco para contraste
+}
+
+// Efeito hover do botão primário
+.mf-validator__button--primary:hover:not(:disabled) {
+  background: #0056b3; // Azul mais escuro no hover
+  transform: translateY(-1px); // Leve elevação para feedback visual
+}
+
+// Estado desabilitado do botão primário
+.mf-validator__button--primary:disabled {
+  opacity: 0.7; // Transparência para indicar inativo
+  cursor: not-allowed; // Cursor indica que não pode clicar
+}
+
+// =====================================================
+// ANIMAÇÃO DE LOADING NO BOTÃO
+// =====================================================
+// Ícone que gira quando o botão está processando
+.mf-validator__button--primary .spinning {
+  animation: s 1s linear infinite; // Rotação contínua de 1 segundo
+}
+// =====================================================
+// ÍCONES ESPECÍFICOS
+// =====================================================
+// Ícones de erro em campos e mensagens
+.error-icon {
+  font-size: 1rem !important; // Tamanho médio para não sobrecarregar
+  color: $e !important; // Cor vermelha para indicar erro
+}
+
+// Ícones de sucesso
+.success-icon {
+  font-size: 1.2rem !important; // Ligeiramente maior que erro para destaque positivo
+  color: $s !important; // Cor verde para indicar sucesso
+}
+
+// =====================================================
+// ANIMAÇÃO DE ROTAÇÃO (LOADING)
+// =====================================================
+// Keyframe para rotação contínua usada no ícone de loading
+@keyframes s {
+  from {
+    transform: rotate(0); // Inicia sem rotação
+  }
+  to {
+    transform: rotate(360deg); // Completa uma volta completa
+  }
+}
+// =====================================================
+// RESPONSIVIDADE - TABLETS (768px e abaixo)
+// =====================================================
+// Ajustes para telas médias como tablets
+@media (max-width: 768px) {
+  .mf-validator {
+    padding: 16px; // Reduz padding para aproveitar melhor o espaço
+    align-items: flex-start; // Alinha no topo em vez do centro
+    padding-top: 32px; // Adiciona espaço no topo
+  }
+  .mf-validator__card {
+    padding: 24px; // Reduz padding interno do card
+  }
+}
+
+// =====================================================
+// RESPONSIVIDADE - MOBILE (480px e abaixo)
+// =====================================================
+// Ajustes para smartphones e telas muito pequenas
+@media (max-width: 480px) {
+  .mf-validator__card {
+    padding: 16px; // Ainda menos padding para telas pequenas
+  }
+  .mf-validator__header {
+    margin-bottom: 24px; // Reduz espaço do cabeçalho
+  }
+  .mf-validator__title {
+    font-size: 1.5rem; // Título menor para caber melhor
+  }
+  .mf-validator__actions {
+    flex-direction: column; // Botões em coluna em vez de linha
+    gap: 12px; // Menor espaço entre botões empilhados
+  }
+  .mf-validator__button {
+    width: 100%; // Botões ocupam toda largura disponível
+    min-width: unset; // Remove largura mínima
+  }
+}
+// =====================================================
+// INTEGRAÇÃO COM ANGULAR MATERIAL
+// =====================================================
+// Personalização dos componentes do Angular Material para se adequarem ao design
+
+// Form fields ocupam toda largura disponível
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+// Mensagens de erro com ícone e espaçamento adequado
+::ng-deep .mat-mdc-form-field-error {
+  display: flex; // Layout flexível para ícone e texto
+  align-items: center; // Alinha ícone e texto verticalmente
+  gap: 4px; // Pequeno espaço entre ícone e mensagem
+  font-size: 0.75rem; // Texto pequeno para não sobrecarregar
+}
+
+// Textos de ajuda (hints) com estilo consistente
+::ng-deep .mat-mdc-form-field-hint {
+  font-size: 0.75rem; // Mesmo tamanho das mensagens de erro
+  color: $m; // Cor cinza para ser discreto
+}
+
+// =====================================================
+// CONFIGURAÇÃO DOS MATERIAL ICONS
+// =====================================================
+// Configuração consolidada para garantir renderização correta dos ícones
+// Aplica-se a todos os ícones do Material Design no componente
+::ng-deep mat-icon,
+.material-icons,
+mat-icon {
+  font-family: "Material Icons" !important; // Família de fonte específica
+  font-weight: normal !important; // Peso normal (não negrito)
+  font-style: normal !important; // Estilo normal (não itálico)
+  line-height: 1 !important; // Altura da linha unitária
+  letter-spacing: normal !important; // Espaçamento normal entre letras
+  text-transform: none !important; // Sem transformação de texto
+  display: inline-block !important; // Display inline-block para alinhamento
+  white-space: nowrap !important; // Não quebra linha
+  word-wrap: normal !important; // Quebra de palavra normal
+  direction: ltr !important; // Direção esquerda para direita
+  font-feature-settings: "liga" !important; // Habilita ligaduras dos ícones
+  -webkit-font-feature-settings: "liga" !important; // Webkit ligaduras
+  -webkit-font-smoothing: antialiased !important; // Suavização de fonte no WebKit
+}
+
+// =====================================================
+// BOTÃO DE VISIBILIDADE DA SENHA
+// =====================================================
+// Estilização específica do botão que mostra/oculta a senha
+.password-toggle-button {
+  color: $m !important; // Cor cinza por padrão
+  width: 40px; // Largura fixa para consistência
+  height: 40px; // Altura fixa para consistência
+  display: flex; // Layout flexível para centralizar ícone
+  align-items: center; // Centraliza verticalmente
+  justify-content: center; // Centraliza horizontalmente
+
+  // Ícone dentro do botão
+  mat-icon {
+    font-size: 20px !important; // Tamanho específico do ícone
+    width: 20px !important; // Largura fixa
+    height: 20px !important; // Altura fixa
   }
 
-  &__card {
-    padding: $card-padding;
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-    background-color: $background-color;
-    width: 600px;
-    max-width: $max-width;
-
-    &__text--success {
-      color: $succes-color;
-    }
+  // Efeito hover - muda para cor primária
+  &:hover {
+    color: $p !important; // Azul primário no hover
   }
+}
 
-  &__field {
-    width: 100%;
-  }
+// =====================================================
+// ÍCONES ESPECÍFICOS
+// =====================================================
+// Ícone usado na lista de erros (X vermelho)
+.list-icon {
+  font-size: 1rem !important; // Tamanho médio
+  color: $e !important; // Cor vermelha para indicar erro
+}
 
-  &__button {
-    align-self: flex-end;
-  }
+// =====================================================
+// ESTADO DE LOADING DO FORMULÁRIO
+// =====================================================
+// Aplicado dinamicamente quando o formulário está processando
+.mf-validator--loading {
+  pointer-events: none; // Desabilita interações do usuário
+  opacity: 0.7; // Reduz opacidade para indicar estado inativo
 }
